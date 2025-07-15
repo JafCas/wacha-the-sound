@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import PersonCard from './components/cards/Person.vue';
-import SongCard, { type Song } from './components/cards/Song.vue';
-import HimImage from './assets/Him.png';
-import HerImage from './assets/Her.png';
+import PersonCard from "./components/cards/Person.vue";
+import SongCard, { type Song } from "./components/cards/Song.vue";
+import HimImage from "./assets/Him.png";
+import HerImage from "./assets/Her.png";
 
 // Dummy song data
 const songs: Song[] = [
   {
     name: "Bohemian Rhapsody",
     artist: "Queen",
-    recomendedBy: "Jafet"
+    recomendedBy: "Jafet",
   },
   {
     name: "Imagine",
     artist: "John Lennon",
-    recomendedBy: "Melissa"
-  }
+    recomendedBy: "Melissa",
+  },
 ];
 
 const handleSongPlay = (song: Song) => {
@@ -29,23 +28,23 @@ const handleSongPlay = (song: Song) => {
     <div class="person-cards">
       <PersonCard
         name="Jafet"
-        :onPress="id => console.log(`Button pressed with id: ${id}`)"
+        :onPress="(id) => console.log(`Button pressed with id: ${id}`)"
         :imageUrl="HimImage"
         imageAlt="Profile picture of Leonel Castillo"
       />
       <PersonCard
         name="Melissa"
-        :onPress="id => console.log(`Button pressed with id: ${id}`)"
+        :onPress="(id) => console.log(`Button pressed with id: ${id}`)"
         :imageUrl="HerImage"
         imageAlt="Profile picture of Jane Doe"
       />
     </div>
-    
+
     <div class="songs-section">
       <h2>Recommended Songs</h2>
       <div class="song-list">
         <SongCard
-          v-for="song in songs" 
+          v-for="song in songs"
           :key="`${song.name}-${song.artist}`"
           :song="song"
           :onPlay="handleSongPlay"
@@ -53,7 +52,6 @@ const handleSongPlay = (song: Song) => {
       </div>
     </div>
   </div>
-  <HelloWorld msg="Sube una rola" />
 </template>
 
 <style scoped>
