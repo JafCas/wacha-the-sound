@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PersonCard from "./components/cards/Person.vue";
 import SongCard, { type Song } from "./components/cards/Song.vue";
+import Search from "./components/bars/Search.vue";
 import HimImage from "./assets/Him.png";
 import HerImage from "./assets/Her.png";
 
@@ -25,6 +26,12 @@ const handleSongPlay = (song: Song) => {
 
 <template>
   <div>
+    <Search
+      placeholder="Search for songs, artists, or albums..."
+      @onSearch="(query) => console.log(`Searching for: ${query}`)"
+      @onClear="() => console.log('Search cleared')"
+      @onEnter="(query) => console.log(`Enter pressed with query: ${query}`)"
+    />
     <div class="person-cards">
       <PersonCard
         name="Jafet"
