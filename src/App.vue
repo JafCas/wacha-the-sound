@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+import PersonCard from './components/cards/Person.vue';
+import HimImage from './assets/Him.png';
+import HerImage from './assets/Her.png';
 </script>
 
 <template>
   <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="./assets/Him.png" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/Her.png" class="logo vue" alt="Vue logo" />
-    </a>
+    <PersonCard
+      name="Jafet"
+      :onPress="id => console.log(`Button pressed with id: ${id}`)"
+      :imageUrl="HimImage"
+      imageAlt="Profile picture of Leonel Castillo"
+    />
+    <PersonCard
+      name="Melissa"
+      :onPress="id => console.log(`Button pressed with id: ${id}`)"
+      :imageUrl="HerImage"
+      imageAlt="Profile picture of Jane Doe"
+    />
   </div>
   <HelloWorld msg="Sube una rola" />
 </template>
