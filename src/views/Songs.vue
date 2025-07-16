@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import SongCard, { type Song } from "../components/cards/Song.vue";
+
+interface Props {
+  songs: Song[];
+  onSongPlay?: (song: Song) => void;
+}
+
+defineProps<Props>();
+</script>
+
 <template>
   <div class="songs-section">
     <h2 class="section-title">Recommended Songs</h2>
@@ -11,17 +22,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import SongCard, { type Song } from '../components/cards/Song.vue';
-
-interface Props {
-  songs: Song[];
-  onSongPlay?: (song: Song) => void;
-}
-
-defineProps<Props>();
-</script>
 
 <style scoped>
 .songs-section {

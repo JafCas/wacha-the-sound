@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import PersonCard from "../components/cards/Person.vue";
+
+export interface User {
+  name: string;
+  imageUrl: string;
+  imageAlt: string;
+}
+
+interface Props {
+  users: User[];
+  onUserPress?: (id: number) => void;
+}
+
+defineProps<Props>();
+</script>
+
 <template>
   <div class="users-section">
     <h2 class="section-title">Users</h2>
@@ -13,23 +30,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import PersonCard from '../components/cards/Person.vue';
-
-export interface User {
-  name: string;
-  imageUrl: string;
-  imageAlt: string;
-}
-
-interface Props {
-  users: User[];
-  onUserPress?: (id: number) => void;
-}
-
-defineProps<Props>();
-</script>
 
 <style scoped>
 .users-section {
