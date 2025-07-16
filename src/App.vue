@@ -1,9 +1,24 @@
 <script setup lang="ts">
-import PersonCard from "./components/cards/Person.vue";
-import SongCard, { type Song } from "./components/cards/Song.vue";
+import { type Song } from "./components/cards/Song.vue";
 import Search from "./components/bars/Search.vue";
+import Users, { type User } from "./views/Users.vue";
+import Songs from "./views/Songs.vue";
 import HimImage from "./assets/Him.png";
 import HerImage from "./assets/Her.png";
+
+// Dummy user data
+const users: User[] = [
+  {
+    name: "Jafet",
+    imageUrl: HimImage,
+    imageAlt: "Profile picture of Leonel Castillo"
+  },
+  {
+    name: "Melissa",
+    imageUrl: HerImage,
+    imageAlt: "Profile picture of Jane Doe"
+  }
+];
 
 // Dummy song data
 const songs: Song[] = [
@@ -19,6 +34,10 @@ const songs: Song[] = [
   },
 ];
 
+const handleUserPress = (id: number) => {
+  console.log(`Button pressed with id: ${id}`);
+};
+
 const handleSongPlay = (song: Song) => {
   console.log(`Playing song: ${song.name} by ${song.artist}`);
 };
@@ -28,65 +47,25 @@ const handleSongPlay = (song: Song) => {
   <div>
     <Search
       placeholder="Search for songs, artists, or albums..."
-      @onSearch="(query) => console.log(`Searching for: ${query}`)"
-      @onClear="() => console.log('Search cleared')"
-      @onEnter="(query) => console.log(`Enter pressed with query: ${query}`)"
+      :onSearch="(query: string) => console.log(`Searching for: ${query}`)"
+      :onClear="() => console.log('Search cleared')"
+      :onEnter="(query: string) => console.log(`Enter pressed with query: ${query}`)"
     />
-    <div class="person-cards">
-      <PersonCard
-        name="Jafet"
-        :onPress="(id) => console.log(`Button pressed with id: ${id}`)"
-        :imageUrl="HimImage"
-        imageAlt="Profile picture of Leonel Castillo"
-      />
-      <PersonCard
-        name="Melissa"
-        :onPress="(id) => console.log(`Button pressed with id: ${id}`)"
-        :imageUrl="HerImage"
-        imageAlt="Profile picture of Jane Doe"
-      />
-    </div>
 
-    <div class="songs-section">
-      <h2>Recommended Songs</h2>
-      <div class="song-list">
-        <SongCard
-          v-for="song in songs"
-          :key="`${song.name}-${song.artist}`"
-          :song="song"
-          :onPlay="handleSongPlay"
-        />
-      </div>
-    </div>
+    <Users 
+      :users="users"
+      :onUserPress="handleUserPress"
+    />
+
+    <Songs 
+      :songs="songs"
+      :onSongPlay="handleSongPlay"
+    />
   </div>
 </template>
 
 <style scoped>
-.person-cards {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-}
-
-.songs-section {
-  margin-bottom: 32px;
-}
-
-.songs-section h2 {
-  color: #2c3e50;
-  margin-bottom: 16px;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.song-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-width: 600px;
-}
-
+/* Main app container styles */
 .logo {
   height: 16em;
   padding: 1.5em;
@@ -98,5 +77,14 @@ const handleSongPlay = (song: Song) => {
 }
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
+}
+
+/* App-wide spacing */
+div > * {
+  margin-bottom: 24px;
+}
+
+div > *:last-child {
+  margin-bottom: 0;
 }
 </style>
