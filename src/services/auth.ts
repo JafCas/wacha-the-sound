@@ -1,15 +1,23 @@
-import type { AuthConfig } from '../types/auth';
+import type { AuthConfig } from "../types/auth";
 
 /**
  * Authentication service configuration
  * Replace these values with your actual OAuth provider settings
  */
 export const authConfig: AuthConfig = {
-  clientId: import.meta.env.VITE_OAUTH_CLIENT_ID || 'your-client-id',
-  redirectUri: import.meta.env.VITE_OAUTH_REDIRECT_URI || `${window.location.origin}/auth/callback`,
-  authorizationEndpoint: import.meta.env.VITE_OAUTH_AUTH_ENDPOINT || 'https://your-oauth-provider.com/oauth/authorize',
-  tokenEndpoint: import.meta.env.VITE_OAUTH_TOKEN_ENDPOINT || 'https://your-oauth-provider.com/oauth/token',
-  scope: import.meta.env.VITE_OAUTH_SCOPE || 'read write',
+  clientId: import.meta.env.VITE_OAUTH_CLIENT_ID || "your-client-id",
+  clientSecret:
+    import.meta.env.VITE_OAUTH_CLIENT_SECRET || "your-client-secret",
+  redirectUri:
+    import.meta.env.VITE_OAUTH_REDIRECT_URI ||
+    `${window.location.origin}/auth/callback`,
+  authorizationEndpoint:
+    import.meta.env.VITE_OAUTH_AUTH_ENDPOINT ||
+    "https://your-oauth-provider.com/oauth/authorize",
+  tokenEndpoint:
+    import.meta.env.VITE_OAUTH_TOKEN_ENDPOINT ||
+    "https://your-oauth-provider.com/oauth/token",
+  scope: import.meta.env.VITE_OAUTH_SCOPE || "read write",
 };
 
 /**
@@ -29,7 +37,7 @@ export class AuthService {
   static getInstance(config?: AuthConfig): AuthService {
     if (!AuthService.instance) {
       if (!config) {
-        throw new Error('AuthService config is required for initialization');
+        throw new Error("AuthService config is required for initialization");
       }
       AuthService.instance = new AuthService(config);
     }
@@ -55,15 +63,15 @@ export class AuthService {
    */
   validateConfig(): boolean {
     const requiredFields: (keyof AuthConfig)[] = [
-      'clientId',
-      'redirectUri',
-      'authorizationEndpoint',
-      'tokenEndpoint'
+      "clientId",
+      "redirectUri",
+      "authorizationEndpoint",
+      "tokenEndpoint",
     ];
 
-    return requiredFields.every(field => {
+    return requiredFields.every((field) => {
       const value = this.config[field];
-      return value && value.trim() !== '' && value !== 'your-client-id';
+      return value && value.trim() !== "" && value !== "your-client-id";
     });
   }
 
@@ -71,9 +79,11 @@ export class AuthService {
    * Check if running in development mode
    */
   isDevelopment(): boolean {
-    return import.meta.env.DEV || 
-           window.location.hostname === 'localhost' ||
-           window.location.hostname === '127.0.0.1';
+    return (
+      import.meta.env.DEV ||
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+    );
   }
 }
 

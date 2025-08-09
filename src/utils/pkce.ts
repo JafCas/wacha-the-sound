@@ -14,12 +14,12 @@ export async function generatePKCETokensAsync(): Promise<PKCETokens> {
     .replace(/=/g, "");
 
   // Generate code challenge using SHA256
-  const buffer = await crypto.subtle.digest(
+  const sha256 = await crypto.subtle.digest(
     "SHA-256",
     new TextEncoder().encode(codeVerifier)
   );
   const codeChallenge = base64UrlEncode(
-    String.fromCharCode(...new Uint8Array(buffer))
+    String.fromCharCode(...new Uint8Array(sha256))
   )
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
